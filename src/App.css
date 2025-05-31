@@ -1,0 +1,46 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.gridContainer {
+    width: 1200px;
+    height: 1200px;
+    
+}
+
+.sideMenu {
+  position: absolute;
+  right: 0;
+  top: 5%;
+  height: 100%;
+  width: 25%;
+  background-color: #000000;
+}
+
+.sideMenuTitle {
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.titleText {
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5%;
+  width: 100%;
+  background-color: #e00000;
+}
