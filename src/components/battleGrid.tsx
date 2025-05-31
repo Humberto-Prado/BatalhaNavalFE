@@ -18,7 +18,7 @@ const BattleGrid: React.FC = () => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8000/ws/connect");
+    const ws = new WebSocket("ws://batalha-bk.railway.internal:8000");
 
     // Evento disparado ao abrir a conexão WebSocket
     ws.onopen = () => {
