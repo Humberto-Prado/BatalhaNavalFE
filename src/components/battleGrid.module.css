@@ -1,7 +1,7 @@
 
 
 #grid-user {
-    background-image: url(./src/assets/ocean-bg.jpg);
+    background-image: url(/assets/ocean-bg.jpg);
     background-size:cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@
 }
 
 #grid-player {
-    background-image: url(./src/assets/ocean-bg.jpg);
+    background-image: url(/assets/ocean-bg.jpg);
     background-size:cover;
     background-position: center;
     background-repeat: no-repeat;
