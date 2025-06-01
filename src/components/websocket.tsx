@@ -38,7 +38,7 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
 
   const sendMessage = (message: any) => {
     if (socket?.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(message));
+      socket.send(JSON.stringify('{"action": "get_game_info","game_id": 1,"player_id": 1}'));
       console.log("Mensagem enviada ao servidor:", message);
     } else {
       console.error("WebSocket não está conectado.");
