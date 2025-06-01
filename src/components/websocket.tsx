@@ -17,14 +17,14 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
 
     ws.onmessage = (event) => {
       try {
-        const parsed = JSON.parse(event.data);
-        console.log("📦 Mensagem JSON recebida do servidor:", parsed);
-        onMessage(parsed); // you can handle the JSON result here
+        const data = JSON.parse(event.data);
+        console.log("📦 JSON recebido do servidor:", data);
+        onMessage(data);
       } catch (err) {
         console.log("💬 Mensagem simples recebida do servidor:", event.data);
-        // Optional: handle plain strings if needed
       }
     };
+
 
 
     ws.onerror = (error) => {
