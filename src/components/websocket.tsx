@@ -16,10 +16,16 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
     };
 
     ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Mensagem recebida do servidor:", data);
-      onMessage(data); // Chama a função passada via props para tratar a mensagem
+      try {
+        const parsed = JSON.parse(event.data);
+        console.log("📦 Mensagem JSON recebida do servidor:", parsed);
+        onMessage(parsed); // you can handle the JSON result here
+      } catch (err) {
+        console.log("💬 Mensagem simples recebida do servidor:", event.data);
+        // Optional: handle plain strings if needed
+      }
     };
+
 
     ws.onerror = (error) => {
       console.error("Erro na conexão WebSocket:", error);
