@@ -87,7 +87,7 @@ const BattleGrid: React.FC = () => {
                     }}
                     onMouseEnter={() => {
                       setHoveredCoordinate(buttonId);
-                      setHoveredGrid("grid-player");
+                      setHoveredGrid("grid-user");
                     }}
                     onMouseLeave={() => {
                       setHoveredCoordinate(null);
@@ -97,7 +97,7 @@ const BattleGrid: React.FC = () => {
                     {playerDeployed.some((d) => d.row === row && d.col === col) && (
                       <span className={Styles.alert}>X</span>
                     )}
-                    {hoveredCoordinate === buttonId && hoveredGrid === "grid-player" && (
+                    {hoveredCoordinate === buttonId && hoveredGrid === "grid-user" && (
                       <span className={Styles.alert}>{buttonId}</span>
                     )}
                   </button>
