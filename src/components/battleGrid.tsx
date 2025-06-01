@@ -1,6 +1,7 @@
+// BattleGrid.tsx
 import React, { useState } from "react";
 import Styles from "./battleGrid.module.css";
-import WebSocketComponent from "./websocket"; // adjust path as needed
+import WebSocketComponent from "./websocket";
 
 interface DeployedCoordinate {
   row: string;
@@ -14,28 +15,26 @@ const BattleGrid: React.FC = () => {
   const [userDeployed, setUserDeployed] = useState<DeployedCoordinate[]>([]);
 
   const handleMessage = (data: any) => {
-    console.log("Mensagem recebida do servidor:", data);
+    console.log("📬 Resposta do servidor:", data);
   };
 
   return (
     <WebSocketComponent onMessage={handleMessage}>
-      {(sendMessage) => (
+      {() => (
         <div id={Styles["grid-user"]}>
           {rows.map((row) =>
             columns.map((col) => {
               const buttonId = `${row}${col}`;
+              const isSelected = userDeployed.some((d) => d.row === row && d.col === col);
               return (
                 <button
                   key={buttonId}
                   className={Styles.cels}
-                  onClick={() => {
-                    setUserDeployed((prev) => [...prev, { row, col }]);
-                    sendMessage({ action: "get_game_info", game_id: 1, player_id: 1 });
-                  }}
+                  onClick={() =>
+                    setUserDeployed((prev) => [...prev, { row, col }])
+                  }
                 >
-                  {userDeployed.some((d) => d.row === row && d.col === col) && (
-                    <span className={Styles.alert}>X</span>
-                  )}
+                  {isSelected && <span className={Styles.alert}>X</span>}
                 </button>
               );
             })

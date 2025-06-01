@@ -1,7 +1,8 @@
+// websocket.tsx
 import React, { useEffect, useState } from "react";
 
 interface WebSocketProps {
-  onMessage: (message: any) => void; // Função para tratar mensagens recebidas
+  onMessage: (message: any) => void;
   children?: (sendMessage: (message: any) => void) => React.ReactNode;
 }
 
@@ -12,28 +13,37 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
     const ws = new WebSocket("wss://batalha-bk-production.up.railway.app/ws/connect");
 
     ws.onopen = () => {
-      console.log("Conexão WebSocket estabelecida.");
+      console.log("✅ WebSocket conectado.");
     };
 
     ws.onmessage = (event) => {
+      console.log("🧾 RAW:", event.data);
+
       try {
         const data = JSON.parse(event.data);
-        console.log("📦 JSON recebido do servidor:", data);
+        console.log("📦 JSON:", data);
         onMessage(data);
-      } catch (err) {
-        console.log("💬 Mensagem simples recebida do servidor:", event.data);
+      } catch {
+        console.log("💬 Texto:", event.data);
+        if (event.data.includes("Welcome")) {
+          const msg = { action: "get_game_info", game_id: 1, player_id: 1 };
+          ws.send(JSON.stringify(msg));
+          console.log("📤 Enviado:", msg);
+        }
       }
     };
 
-
-
     ws.onerror = (error) => {
-      console.error("Erro na conexão WebSocket:", error);
+      console.error("❗ Erro WebSocket:", error);
     };
 
     ws.onclose = () => {
-      console.log("Conexão WebSocket encerrada.");
+      console.log("❌ Conexão encerrada.");
     };
+
+    window.addEventListener("beforeunload", () => {
+      ws.close();
+    });
 
     setSocket(ws);
 
@@ -44,10 +54,10 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
 
   const sendMessage = (message: any) => {
     if (socket?.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify('{"action": "get_game_info","game_id": 1,"player_id": 1}'));
-      console.log("Mensagem enviada ao servidor:", message);
+      socket.send(JSON.stringify(message));
+      console.log("📤 Enviado pelo usuário:", message);
     } else {
-      console.error("WebSocket não está conectado.");
+      console.error("⚠️ WebSocket não está conectado.");
     }
   };
 
