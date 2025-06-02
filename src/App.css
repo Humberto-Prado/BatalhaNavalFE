@@ -44,3 +44,32 @@
   width: 100%;
   background-color: #e00000;
 }
+
+/* App.css */
+.startBtn, .endBtn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.startBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.startBtn:hover {
+  background-color: #45a049;
+}
+
+.endBtn {
+  background-color: #f44336;
+  color: white;
+}
+
+.endBtn:hover {
+  background-color: #d32f2f;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface WebSocketProps {
   onMessage: (message: any) => void;
@@ -6,13 +6,26 @@ interface WebSocketProps {
 }
 
 const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) => {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
+  const [sendMessageFn, setSendMessageFn] = useState<(message: any) => void>(() => () => {
+    console.warn("⚠️ WebSocket não está pronto ainda.");
+  });
 
   useEffect(() => {
-    const ws = new WebSocket("wss://batalha-bk-production.up.railway.app/ws/connect");
+    //const ws = new WebSocket("wss://batalha-bk-production.up.railway.app/ws/connect");
+    const ws = new WebSocket("ws://localhost:8000/ws/connect");
+    wsRef.current = ws;
 
     ws.onopen = () => {
       console.log("✅ WebSocket conectado.");
+      setSendMessageFn(() => (message: any) => {
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(JSON.stringify(message));
+          console.log("📤 Enviado pelo usuário:", message);
+        } else {
+          console.warn("⚠️ WebSocket não está pronto.");
+        }
+      });
     };
 
     ws.onmessage = (event) => {
@@ -37,30 +50,22 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
     };
 
     ws.onclose = () => {
-      console.log("❌ Conexão encerrada.");
+      console.warn("🔌 WebSocket desconectado.");
     };
 
-    window.addEventListener("beforeunload", () => {
+    const cleanup = () => {
       ws.close();
-    });
+    };
 
-    setSocket(ws);
+    window.addEventListener("beforeunload", cleanup);
 
     return () => {
-      ws.close();
+      cleanup();
+      window.removeEventListener("beforeunload", cleanup);
     };
   }, [onMessage]);
 
-  const sendMessage = (message: any) => {
-    if (socket?.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify(message));
-      console.log("📤 Enviado pelo usuário:", message);
-    } else {
-      console.error("⚠️ WebSocket não está conectado.");
-    }
-  };
-
-  return <>{children && children(sendMessage)}</>;
+  return <>{children && children(sendMessageFn)}</>;
 };
 
 export default WebSocketComponent;
