@@ -8,9 +8,10 @@ interface DeployedCoordinate {
 
 interface BattleGridProps {
     sendMessage: ((msg: any) => void) | null;
+    wsData: any;
 }
 
-const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage }) => {
+const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
     const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"];
     const columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -20,6 +21,13 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage }) => {
     const [hoveredGrid, setHoveredGrid] = useState<"grid-user" | "grid-player" | null>(null);
 
     const handleGridClick = (row: string, col: number, grid: "grid-user" | "grid-player") => {
+        
+        if (!wsData) return;
+        console.log("BETTTTTOOOOOSSOSOOOOO DFUYN_)DKMASJIONDNASOIDUBA", wsData);
+
+            // do something useful, like update board based on ship positions
+
+        
         const coordId = `${row}${col}${grid}`;
         console.log(`🧭 Clicado: ${coordId}`);
 
