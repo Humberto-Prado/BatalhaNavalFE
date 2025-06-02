@@ -12,8 +12,8 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ onMessage, children }) =
   });
 
   useEffect(() => {
-    //const ws = new WebSocket("wss://batalha-bk-production.up.railway.app/ws/connect");
-    const ws = new WebSocket("ws://localhost:8000/ws/connect");
+    const ws = new WebSocket("wss://batalha-bk-production.up.railway.app/ws/connect");
+    //const ws = new WebSocket("ws://localhost:8000/ws/connect");
     wsRef.current = ws;
 
     ws.onopen = () => {
