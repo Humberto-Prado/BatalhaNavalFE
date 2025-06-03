@@ -1,22 +1,43 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+
+.mainMenuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  background-image: url('./assets/capa.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.gameOverContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  background-image: url('./assets/gameOver.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .gridContainer {
-    width: 1200px;
-    height: 1200px;
+    height: 100vh;
     
 }
 
 .sideMenu {
-  position: absolute;
-  right: 0;
-  top: 5%;
-  height: 100%;
+  display: block;
   width: 25%;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  float: right;
   background-color: #000000;
 }
 
@@ -26,6 +47,7 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  padding: 2rem;
 }
 
 .titleText {
@@ -37,12 +59,14 @@
 }
 
 .title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 5%;
-  width: 100%;
+  display: block;
+  width: 75%;
+  height: 2rem;
+  float: left;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #e00000;
+  align-content: center;
 }
 
 /* App.css */
@@ -54,6 +78,11 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ margin-bottom: 20px;
+
 }
 
 .startBtn {
@@ -72,4 +101,8 @@
 
 .endBtn:hover {
   background-color: #d32f2f;
+}
+
+.gameOver {
+  color: rgb(201, 15, 15);
 }

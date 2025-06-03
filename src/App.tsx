@@ -5,28 +5,48 @@ import WebSocketComponent from "./components/websocket";
 import Menu from "./Menu";
 
 function App() {
+
     const [wsStarted, setWsStarted] = useState(false);
+    const [page, setPages] = useState<string[]>(["mainMenu", "battleGrid", "gameOver"]);
 
-    return (
-        <>
+    const activePage = page[0];
+    console.log(activePage);
 
-            <div className="menuContainer">
-                <Menu mWsStarted={wsStarted} setmWsStarted={setWsStarted} />
-
+    
+    if (activePage === "mainMenu") {
+        return (
+            <div className="mainMenuContainer">
+                <h1>Tactical Battleship</h1>
+                <button onClick={() => setPages(["battleGrid"])}>PLAY</button>
             </div>
+        );
+    } else if (activePage === "battleGrid") {
+        return (
+            <>
+                <div className="menuContainer">
+                    <Menu mWsStarted={wsStarted} setmWsStarted={setWsStarted} page={page} setPages={setPages}/>
+                </div>
 
-            <div className="gridContainer">
-                {wsStarted && (
-                    <WebSocketComponent>
-                        {(sendMessage, message) => (
-                            <BattleGrid sendMessage={sendMessage} wsData={message} />
-                        )}
-                    </WebSocketComponent>
-                )}
+                {wsStarted ? (
+                    
+                    <div className="gridContainer">
+                        <WebSocketComponent>
+                            {(sendMessage, message) => (
+                                <BattleGrid sendMessage={sendMessage} wsData={message} />
+                            )}
+                        </WebSocketComponent>
+                    </div>
+                ) : null}
+            </>
+        );
+    } else if (activePage === "gameOver") {
+        return (
+            <div className="gameOverContainer">
+                <h1 className="gameOver">Game Over</h1>
+                <button onClick={() => setPages(["mainMenu"])}>Back to Main Menu</button>
             </div>
-
-        </>
-    );
+        );
+    }
 }
 
 export default App;

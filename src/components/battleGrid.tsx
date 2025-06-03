@@ -21,13 +21,13 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
     const [hoveredGrid, setHoveredGrid] = useState<"grid-user" | "grid-player" | null>(null);
 
     const handleGridClick = (row: string, col: number, grid: "grid-user" | "grid-player") => {
-        
-        if (!wsData) return;
-        console.log("BETTTTTOOOOOSSOSOOOOO DFUYN_)DKMASJIONDNASOIDUBA", wsData);
 
-            // do something useful, like update board based on ship positions
+        // if (!wsData) return;
+        // console.log("BETTTTTOOOOOSSOSOOOOO DFUYN_)DKMASJIONDNASOIDUBA", wsData);
 
-        
+        // do something useful, like update board based on ship positions
+
+
         const coordId = `${row}${col}${grid}`;
         console.log(`🧭 Clicado: ${coordId}`);
 
@@ -39,9 +39,7 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
 
         if (sendMessage) {
             sendMessage({
-                action: "get_game_info",
-                game_id: 1,
-                player_id: 1,
+                action: "get_game_info"
             });
         } else {
             console.warn("❌ WebSocket não iniciado ainda.");
