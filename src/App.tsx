@@ -16,8 +16,12 @@ function App() {
     if (activePage === "mainMenu") {
         return (
             <div className="mainMenuContainer">
-                <h1>Tactical Battleship</h1>
-                <button onClick={() => setPages(["battleGrid"])}>PLAY</button>
+                <h1 className="titleMenu">Tactical Battleship</h1>
+                <button className="btnPlayMenu" onClick={() => setPages(["battleGrid"])}>CASUAL</button>
+                <button className="btnPlayMenu" >RANKED</button>
+                <button className="btnPlayMenu" >TUTORIAL</button>
+                <button className="btnPlayMenu" >CLASSES</button>
+                <button className="btnPlayMenu" >DONATE</button>
             </div>
         );
     } else if (activePage === "battleGrid") {
@@ -43,7 +47,7 @@ function App() {
         return (
             <div className="gameOverContainer">
                 <h1 className="gameOver">Game Over</h1>
-                <button onClick={() => setPages(["mainMenu"])}>Back to Main Menu</button>
+                <button className="btnMainMenu" onClick={() => setPages(["mainMenu"])}>Back to Main Menu</button>
             </div>
         );
     }

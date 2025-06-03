@@ -24,11 +24,11 @@ function Menu({ mWsStarted, setmWsStarted, page, setPages }: MenuProps) {
                 <h1 className="sideMenuTitle">Side Menu</h1>
                 {!mWsStarted ? (
                     <button className="startBtn" onClick={startGame}>
-                        ▶️ Start Game
+                        Start Game
                     </button>
                 ) : (
                     <button className="endBtn" onClick={() => { endGame(); gameOver(); }}>
-                        ⛔ End Game
+                        End Game
                     </button>
                 )}
             </div>
