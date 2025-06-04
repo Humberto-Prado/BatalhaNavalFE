@@ -182,3 +182,12 @@ background-color: #4caf4f00;
   transition: 0.8s;
   color: rgb(255, 255, 255);
 }
+
+.audio {
+  position: fixed;
+  bottom: 1rem;
+  left: center;
+  width: 30%;
+  height: 2rem;
+ 
+}

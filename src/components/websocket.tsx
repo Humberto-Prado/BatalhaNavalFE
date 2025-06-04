@@ -30,17 +30,14 @@ const WebSocketComponent: React.FC<WebSocketProps> = ({ children }) => {
         ws.onmessage = (event) => {
             console.log("🧾 RAW:", event.data);
 
+
             try {
                 const data = JSON.parse(event.data);
                 console.log("📦 JSON:", data);
                 setMessage(data);
             } catch {
                 console.log("💬 Texto:", event.data);
-                if (event.data.includes("Welcome")) {
-                    const msg = { action: "get_game_info", game_id: 1, player_id: 1 };
-                    ws.send(JSON.stringify(msg));
-                    console.log("📤 Enviado:", msg);
-                }
+
             }
         };
 

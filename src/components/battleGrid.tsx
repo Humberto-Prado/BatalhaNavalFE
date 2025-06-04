@@ -22,11 +22,17 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
 
     const handleGridClick = (row: string, col: number, grid: "grid-user" | "grid-player") => {
 
+
         // if (!wsData) return;
         // console.log("BETTTTTOOOOOSSOSOOOOO DFUYN_)DKMASJIONDNASOIDUBA", wsData);
-
         // do something useful, like update board based on ship positions
+        let tile = `${row}${col}`;
 
+        if (sendMessage) {
+            sendMessage({ action: "shoot", game_id: 1, player_id: 1, target: tile });
+        }
+        
+            
 
         const coordId = `${row}${col}${grid}`;
         console.log(`🧭 Clicado: ${coordId}`);
@@ -36,29 +42,23 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
         } else {
             setPlayerDeployed((prev) => [...prev, { row, col }]);
         }
-
-        if (sendMessage) {
-            sendMessage({
-                action: "get_game_info"
-            });
-        } else {
-            console.warn("❌ WebSocket não iniciado ainda.");
-        }
     };
+
+
 
     return (
         <>
             {/* User Grid */}
-            <div id={Styles["grid-user"]}>
+            <div id={Styles["grid-player"]}>
                 {rows.map((row) =>
                     columns.map((col) => {
                         const buttonId = `${row}${col}`;
-                        const isSelected = userDeployed.some((d) => d.row === row && d.col === col);
+                        const isSelected = playerDeployed.some((d) => d.row === row && d.col === col);
                         return (
                             <button
                                 key={buttonId}
                                 className={Styles.cels}
-                                onClick={() => handleGridClick(row, col, "grid-user")}
+                                onClick={() => handleGridClick(row, col, "grid-player")}
                                 onMouseEnter={() => {
                                     setHoveredCoordinate(buttonId);
                                     setHoveredGrid("grid-player");
@@ -79,16 +79,16 @@ const BattleGrid: React.FC<BattleGridProps> = ({ sendMessage, wsData }) => {
             </div>
 
             {/* Player Grid */}
-            <div id={Styles["grid-player"]}>
+            <div id={Styles["grid-user"]}>
                 {rows.map((row) =>
                     columns.map((col) => {
                         const buttonId = `${row}${col}`;
-                        const isSelected = playerDeployed.some((d) => d.row === row && d.col === col);
+                        const isSelected = userDeployed.some((d) => d.row === row && d.col === col);
                         return (
                             <button
                                 key={buttonId}
                                 className={Styles.cels}
-                                onClick={() => handleGridClick(row, col, "grid-player")}
+                                onClick={() => handleGridClick(row, col, "grid-user")}
                                 onMouseEnter={() => {
                                     setHoveredCoordinate(buttonId);
                                     setHoveredGrid("grid-user");

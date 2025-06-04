@@ -3,16 +3,20 @@ import "./App.css";
 interface MenuProps {
     mWsStarted: boolean
     setmWsStarted: React.Dispatch<React.SetStateAction<boolean>>;
-    setPages?: React.Dispatch<React.SetStateAction<string[]>>;
-    page?: string[];
-
+    onEnd?: () => void;
+    sendMessage?: ((msg: any) => void) | null;
+    message?: any;
 }
 
-function Menu({ mWsStarted, setmWsStarted, page, setPages }: MenuProps) {
+function Menu({ mWsStarted, setmWsStarted, sendMessage, message, onEnd }: MenuProps) {
 
     const startGame = () => setmWsStarted(true);
-    const endGame = () => setmWsStarted(false);
-    const gameOver = () => setPages && setPages(["gameOver"])
+    const endGame = () => {
+    setmWsStarted(false);
+    if (onEnd) onEnd(); // dispara transição
+  };
+
+    
 
     return (
         <>
@@ -27,7 +31,7 @@ function Menu({ mWsStarted, setmWsStarted, page, setPages }: MenuProps) {
                         Start Game
                     </button>
                 ) : (
-                    <button className="endBtn" onClick={() => { endGame(); gameOver(); }}>
+                    <button className="endBtn" onClick={() => { endGame(); endGame(); }}>
                         End Game
                     </button>
                 )}
