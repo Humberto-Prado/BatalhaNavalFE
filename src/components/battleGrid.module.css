@@ -104,3 +104,13 @@
 .startBtn:hover {
   background-color: #084298;
 }
+
+.hit {
+  background-color: crimson; /* vermelho para acerto */
+  color: white;
+}
+
+.miss {
+  background-color: gray; /* cinza para erro */
+  color: white;
+}

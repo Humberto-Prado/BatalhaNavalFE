@@ -6,12 +6,13 @@ import Menu from "./Menu";
 import { useMachine } from "@xstate/react";
 import { gameMachine } from "./gameMachine";
 
+
 function App() {
   const [wsStarted, setWsStarted] = useState(false);
   const [state, send] = useMachine(gameMachine);
-  const [turn, setTurn] = useMachine(gameMachine);
+  const currentTurn = state.context.turn;
 
-return (
+  return (
     <WebSocketComponent>
       {(sendMessageFn, message) => {
         // Menu Principal
@@ -70,7 +71,11 @@ return (
                   setmWsStarted={setWsStarted}
                   sendMessage={sendMessageFn}
                   message={message}
+                  send={send}
+                  currentTurn={currentTurn}
+                  
                   onEnd={() => send({ type: "END_GAME" })}
+                  
                 />
                 <button className="nextTurnButton" onClick={() => send({ type: "NEXT_TURN" })}>
 
@@ -97,7 +102,7 @@ return (
                 {state.matches({ battleGrid: "playing" }) && (
                   <>
                     <p>🎯 Turno atual: {state.context.turn}</p>
-                    
+
                   </>
                 )}
 
@@ -107,6 +112,9 @@ return (
                     wsData={message}
                     onNextTurn={() => send({ type: "NEXT_TURN" })}
                     onGameOver={() => send({ type: "END_GAME" })}
+                    send={send}
+                    currentTurn={currentTurn}
+                    
                   />
                 )}
               </div>
